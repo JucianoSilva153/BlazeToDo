@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "tailwindcss": "^3.4.0"
+  },
+  "scripts": {
+    "ExecutarTailwind": "npx tailwind -i ./wwwroot/css/tailwind.css -o ./wwwroot/css/app.css -w"
+  }
+}
