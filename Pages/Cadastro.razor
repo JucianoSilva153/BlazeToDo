@@ -1,0 +1,36 @@
+@page "/cadastro"
+
+<div class=" flex justify-center items-center h-screen">
+    <div
+        class=" flex flex-wrap items-center lg:justify-center flex-col w-4/5 lg:w-2/5 md:w-2/4 lg:p-6 lg:shadow-lg lg:shadow-Primaria rounded-lg h-4/5">
+        <div class=" space-y-8">
+            <h1 class=" text-Primaria text-2xl font-bold text-center">Cadastre-se no BlazeToDo</h1>
+            <form action="" class=" space-y-4">
+                <input type="text" placeholder="Nome" name="nome"
+                    class=" py-2 caret-Intermedia focus:outline-0 focus:border-b-Intermedia transition-all w-full border-b-2 border-Primaria">
+
+                <input type="text" placeholder="Sobrenome" name="sobrenome"
+                    class=" py-2 caret-Intermedia focus:outline-0 focus:border-b-Intermedia transition-all w-full border-b-2 border-Primaria">
+
+                <input type="email" placeholder="Email" name="email"
+                    class=" py-2 caret-Intermedia focus:outline-0 focus:border-b-Intermedia transition-all w-full border-b-2 border-Primaria">
+
+                <input type="password" placeholder="Palavra-passe" name="palavrapasse"
+                    class=" py-2 caret-Intermedia focus:outline-0 focus:border-b-Intermedia transition-all w-full border-b-2 border-Primaria">
+
+                <input type="password" placeholder="Confirme a Palavra-passe" name="confirma_palavrapasse"
+                    class=" py-2 caret-Intermedia focus:outline-0 focus:border-b-Intermedia transition-all w-full border-b-2 border-Primaria">
+
+                <button
+                    class=" p-2 w-full bg-Primaria rounded text-Neutra hover:scale-[1.05] transition-all">Cadastrar-se</button>
+            </form>
+            <div class=" flex flex-wrap text-center">
+                <span class=" text-sm w-full">Ja possui uma conta?
+                    <span class=" text-Primaria">
+                        <a href="/entrar">Entre agora!</a>
+                    </span>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
