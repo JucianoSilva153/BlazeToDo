@@ -643,6 +643,14 @@ video {
   height: 30px%;
 }
 
+.h-4 {
+  height: 1rem;
+}
+
+.h-10 {
+  height: 2.5rem;
+}
+
 .max-h-\[80\%\] {
   max-height: 80%;
 }
@@ -791,6 +799,12 @@ video {
   margin-left: calc(1rem * calc(1 - var(--tw-space-x-reverse)));
 }
 
+.space-y-6 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(1.5rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(1.5rem * var(--tw-space-y-reverse));
+}
+
 .overflow-y-auto {
   overflow-y: auto;
 }
@@ -832,6 +846,10 @@ video {
 }
 
 .border-\[2px\] {
+  border-width: 2px;
+}
+
+.border-2 {
   border-width: 2px;
 }
 
@@ -1021,6 +1039,62 @@ video {
   transition-property: transform;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
+}
+
+.selection\:h-3 *::-moz-selection {
+  height: 0.75rem;
+}
+
+.selection\:h-3 *::selection {
+  height: 0.75rem;
+}
+
+.selection\:bg-Intermedia *::-moz-selection {
+  --tw-bg-opacity: 1;
+  background-color: rgb(33 145 251 / var(--tw-bg-opacity));
+}
+
+.selection\:bg-Intermedia *::selection {
+  --tw-bg-opacity: 1;
+  background-color: rgb(33 145 251 / var(--tw-bg-opacity));
+}
+
+.selection\:text-Primaria *::-moz-selection {
+  --tw-text-opacity: 1;
+  color: rgb(86 136 199 / var(--tw-text-opacity));
+}
+
+.selection\:text-Primaria *::selection {
+  --tw-text-opacity: 1;
+  color: rgb(86 136 199 / var(--tw-text-opacity));
+}
+
+.selection\:h-3::-moz-selection {
+  height: 0.75rem;
+}
+
+.selection\:h-3::selection {
+  height: 0.75rem;
+}
+
+.selection\:bg-Intermedia::-moz-selection {
+  --tw-bg-opacity: 1;
+  background-color: rgb(33 145 251 / var(--tw-bg-opacity));
+}
+
+.selection\:bg-Intermedia::selection {
+  --tw-bg-opacity: 1;
+  background-color: rgb(33 145 251 / var(--tw-bg-opacity));
+}
+
+.selection\:text-Primaria::-moz-selection {
+  --tw-text-opacity: 1;
+  color: rgb(86 136 199 / var(--tw-text-opacity));
+}
+
+.selection\:text-Primaria::selection {
+  --tw-text-opacity: 1;
+  color: rgb(86 136 199 / var(--tw-text-opacity));
 }
 
 .odd\:bg-Intermedia:nth-child(odd) {

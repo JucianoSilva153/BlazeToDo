@@ -1,3 +1,63 @@
-@page "/resumo"
+@page "/tarefas/nova"
+@page "/tarefas/{IDTarefa:int}"
 @layout DashboardLayout
-<h1 class=" text-Intermedia">Adicionar nova tarefa!!</h1>
+
+
+
+
+
+
+
+@if (EditarTarefa == true)
+{
+    <h1 class=" text-Intermedia">Editar tarefa!!</h1>
+}
+else
+{
+    <div class=" flex flex-col items-center ">
+        <div class="space-y-6 w-[90%]">
+            <div>
+                <h1 class=" text-2xl font-bold text-Primaria">Adicionar Nova Tarefa</h1>
+                <p class=" text-sm text-Secundaria">Preeencha o formulario abaixo para adicionar uma nova tarefa.</p>
+            </div>
+            <input type="email" placeholder="Tarefa"
+                class=" py-2 caret-Intermedia focus:outline-0 focus:border-b-Intermedia transition-all w-full border-b-2 border-Primaria">
+
+            <div class=" flex space-x-4">
+                <select
+                    class=" py-2 caret-Intermedia focus:outline-0 focus:border-b-Intermedia transition-all w-full border-b-2 border-Primaria">
+                    <option selected>Categoria</option>
+                </select>
+                <select
+                    class=" py-2 caret-Intermedia focus:outline-0 focus:border-b-Intermedia transition-all w-full border-b-2 border-Primaria">
+                    <option selected>Lista</option>
+                </select>
+
+                <input type="date"
+                    class="py-2 caret-Intermedia focus:outline-0 focus:border-b-Intermedia transition-all w-full border-b-2 border-Primaria">
+            </div>
+
+            <textarea rows="10" class=" border-2 border-Primaria w-full rounded-md"></textarea>
+
+            <button class=" p-2 bg-Primaria rounded text-Neutra hover:scale-[1.05] transition-all">Adicionar tarefa</button>
+        </div>
+    </div>
+}
+
+
+
+@code {
+    [Parameter]
+    public int IDTarefa { get; set; }
+
+    bool EditarTarefa = false;
+
+    protected override void OnInitialized()
+    {
+        if (IDTarefa != 0)
+        {
+            EditarTarefa = true;
+        }
+    }
+
+}
