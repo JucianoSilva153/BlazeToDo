@@ -1,21 +1,58 @@
 @page "/admin"
 @layout DashboardLayout
 
-<div class=" flex space-x-3 justify-center">
-    <div class=" bg-Primaria w-[200px] rounded-2xl flex flex-wrap flex-col text-center h-[100px] justify-center items-center ">
-        <h1 class=" w-full text-Neutra text-3xl">13</h1>
-        <h1 class="w-full text-Neutra text-2xl">Tarefas</h1>
+<div class=" h-full flex flex-col w-full">
+    <div class="  h-[20%] flex space-x-3 justify-center">
+        <div
+            class=" bg-Primaria w-[200px] rounded-2xl flex flex-wrap flex-col text-center h-[100px] justify-center items-center ">
+            <h1 class=" w-full text-Neutra text-3xl">13</h1>
+            <h1 class="w-full text-Neutra text-2xl">Tarefas</h1>
+        </div>
+        <div
+            class=" bg-Primaria w-[200px] rounded-2xl flex flex-wrap flex-col text-center h-[100px] justify-center items-center ">
+            <h1 class=" w-full text-Neutra text-3xl">4</h1>
+            <h1 class="w-full text-Neutra text-2xl">Listas de Tarefas</h1>
+        </div>
+        <div
+            class=" bg-Primaria w-[200px] rounded-2xl flex flex-wrap flex-col text-center h-[100px] justify-center items-center ">
+            <h1 class=" w-full text-Neutra text-3xl">7</h1>
+            <h1 class="w-full text-Neutra text-2xl">Categorias</h1>
+        </div>
+        <div
+            class=" bg-Primaria w-[200px] rounded-2xl flex flex-wrap flex-col text-center h-[100px] justify-center items-center ">
+            <h1 class=" w-full text-Neutra text-3xl">7</h1>
+            <h1 class="w-full text-Neutra text-2xl">Concluidas</h1>
+        </div>
     </div>
-    <div class=" bg-Primaria w-[200px] rounded-2xl flex flex-wrap flex-col text-center h-[100px] justify-center items-center ">
-        <h1 class=" w-full text-Neutra text-3xl">4</h1>
-        <h1 class="w-full text-Neutra text-2xl">Listas de Tarefas</h1>
-    </div>
-    <div class=" bg-Primaria w-[200px] rounded-2xl flex flex-wrap flex-col text-center h-[100px] justify-center items-center ">
-        <h1 class=" w-full text-Neutra text-3xl">7</h1>
-        <h1 class="w-full text-Neutra text-2xl">Categorias</h1>
-    </div>
-    <div class=" bg-Primaria w-[200px] rounded-2xl flex flex-wrap flex-col text-center h-[100px] justify-center items-center ">
-        <h1 class=" w-full text-Neutra text-3xl">7</h1>
-        <h1 class="w-full text-Neutra text-2xl">Concluidas</h1>
+
+    <div class=" flex h-[80%] w-full p-2 space-x-3">
+        <div class=" w-[100%] shadow-md shadow-Primaria rounded-md p-3 flex-col flex h-full ">
+            <h1 class=" font-bold text-Secundaria py-2">Tarefas Pendentes</h1>
+            <div class=" overflow-y-auto h-[100%]">
+                <table class=" table-fixed  w-full ">
+                    <thead class=" text-left bg-Intermedia bg-opacity-20">
+                        <tr>
+                            <th class=" p-2">Tarefa</th>
+                            <th colspan="2">Descricao</th>
+                            <th >Categoria</th>
+                            <th>Lista</th>
+                            <th>Concluir</th>
+                        </tr>
+                    </thead>
+                    <tbody class=" ">
+                        @for (int i = 0; i <= 10; i++)
+                        {
+                            <tr class=" even:bg-Intermedia even:bg-opacity-5 ">
+                                <td class=" p-2">@($"Tarefa {i}")</td>
+                                <td colspan="2">tarefa para xxx</td>
+                                <td>@($"Categoria {i}")</td>
+                                <td>@($"Lista {i}")</td>
+                                <td> <input type="radio" name="" id=""> </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </div>
