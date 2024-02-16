@@ -1,36 +1,70 @@
 @page "/cadastro"
+@inject NavigationManager rota
+@inject APIService api
 
 <div class=" flex justify-center items-center h-screen">
     <div
         class=" flex flex-wrap items-center lg:justify-center flex-col w-4/5 lg:w-2/6 md:w-2/4 lg:p-6 lg:shadow-lg lg:shadow-Primaria rounded-lg h-4/5">
         <div class=" space-y-8">
             <h1 class=" text-Primaria text-2xl font-bold text-center">Cadastre-se no BlazeToDo</h1>
-            <form action="" class=" space-y-4">
-                <input type="text" placeholder="Nome" name="nome"
+            <div class=" space-y-4">
+                <input type="text" placeholder="Nome" name="nome" @bind-value="Conta.Nome"
                     class=" py-2 caret-Intermedia focus:outline-0 focus:border-b-Intermedia transition-all w-full border-b-2 border-Primaria">
 
-                <input type="text" placeholder="Sobrenome" name="sobrenome"
+                <input type="text" placeholder="Sobrenome" name="sobrenome" @bind-value="Sobrenome"
                     class=" py-2 caret-Intermedia focus:outline-0 focus:border-b-Intermedia transition-all w-full border-b-2 border-Primaria">
 
-                <input type="email" placeholder="Email" name="email"
+                <input type="email" placeholder="Email" name="email" @bind-value="Conta.Email"
                     class=" py-2 caret-Intermedia focus:outline-0 focus:border-b-Intermedia transition-all w-full border-b-2 border-Primaria">
 
-                <input type="password" placeholder="Palavra-passe" name="palavrapasse"
+                <input type="number" placeholder="Contacto" name="email" @bind-value="Conta.Contacto"
+                    class=" py-2 caret-Intermedia focus:outline-0 focus:border-b-Intermedia transition-all w-full border-b-2 border-Primaria">
+
+                <input type="password" placeholder="Palavra-passe" name="palavrapasse" @bind-value="Conta.Password"
                     class=" py-2 caret-Intermedia focus:outline-0 focus:border-b-Intermedia transition-all w-full border-b-2 border-Primaria">
 
                 <input type="password" placeholder="Confirme a Palavra-passe" name="confirma_palavrapasse"
+                    @bind-value="ConfirmPassword"
                     class=" py-2 caret-Intermedia focus:outline-0 focus:border-b-Intermedia transition-all w-full border-b-2 border-Primaria">
 
-                <button
+                <button @onclick="CriarNovaConta"
                     class=" p-2 w-full bg-Primaria rounded text-Neutra hover:scale-[1.05] transition-all">Cadastrar-se</button>
-            </form>
+            </div>
             <div class=" flex flex-wrap text-center">
                 <span class=" text-sm w-full">Ja possui uma conta?
                     <span class=" text-Primaria">
                         <a href="/entrar">Entre agora!</a>
                     </span>
                 </span>
+                <span class=" text-sm w-full text-[red]">@MensagemErro</span>
             </div>
         </div>
     </div>
 </div>
+
+@code {
+
+    public AdicionarEditarContaDTO Conta = new AdicionarEditarContaDTO();
+    string Sobrenome;
+    string ConfirmPassword;
+
+    string MensagemErro = "";
+
+    async void CriarNovaConta()
+    {
+        if (Conta.Nome != string.Empty && Conta.Email != string.Empty && Conta.Contacto.ToString().Length == 9 &&
+        (Conta.Password == ConfirmPassword))
+        {
+            Conta.Nome += $" {Sobrenome}";
+            if (await api.CriarConta(Conta))
+            {
+                rota.NavigateTo("/entrar");
+            }
+            else
+            {
+                MensagemErro = "Ocorreu um erro ao criar sua conta!";
+            }
+
+        }
+    }
+}

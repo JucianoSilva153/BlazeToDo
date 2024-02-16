@@ -1,5 +1,6 @@
 @page "/entrar"
 @inject NavigationManager rotas
+@inject APIService api
 
 <div class=" flex justify-center items-center h-screen">
     <div
@@ -8,20 +9,21 @@
         </div>
         <div class=" space-y-8">
             <h1 class=" text-Primaria text-2xl font-bold text-center">Login</h1>
-            <form action="" class=" space-y-4">
-                <input type="email" placeholder="Email ou telefone" name=""
+            <div class=" space-y-4">
+                <input type="email" placeholder="Email ou telefone" name="" @bind-value="Email" required
                     class=" py-2 caret-Intermedia focus:outline-0 focus:border-b-Intermedia transition-all w-full border-b-2 border-Primaria">
-                <input type="password" placeholder="Palavra-passe" name=""
+                <input type="password" placeholder="Palavra-passe" name="" @bind-value="Password" required
                     class=" py-2 caret-Intermedia focus:outline-0 focus:border-b-Intermedia transition-all w-full border-b-2 border-Primaria">
                 <button @onclick="Login"
-                    class=" p-2 w-full bg-Primaria rounded text-Neutra hover:scale-[1.05] transition-all">Entrar</button>
-            </form>
+                    class=" p-2 w-full bg-Primaria rounded text-Neutra hover:scale-[1.05] transition-all">@TextoBotao</button>
+            </div>
             <div class=" flex flex-wrap text-center">
                 <span class=" text-sm w-full">Não possui uma conta? <span class=" text-Primaria"><a
                             href="/cadastro">Crie uma
                             agora!!</a></span></span>
                 <span class=" text-sm text-Primaria w-full"><a href="">Esqueceu sua Palavra
                         Palavra-passe?</a></span>
+                <span class=" text-sm text-[red] w-full"><a href="">@TextoErro</a></span>
             </div>
         </div>
     </div>
@@ -30,10 +32,28 @@
 
 @code {
 
+    string Email = "";
+    string Password = "";
 
-    void Login()
+    string TextoBotao = "Entrar";
+    string TextoErro = "";
+
+    async Task Login()
     {
-        rotas.NavigateTo("/admin");
+        if (Email != "" && Password != "")
+        {
+            TextoErro = "";
+
+            TextoBotao = "Processando...";
+            if (await api.Autenticar(Email, Password))
+                rotas.NavigateTo("/admin");
+
+            TextoBotao = "Entrar";
+            TextoErro = "Ocorreu um erro ao fazer Login. Tente Novamente";
+        }else{
+            TextoErro = "Por favor, preencha todos os campos acima!";
+        }
+
     }
 
 }

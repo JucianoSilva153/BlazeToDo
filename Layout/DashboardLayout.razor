@@ -1,4 +1,6 @@
 @inherits LayoutComponentBase
+@inject APIService api
+@inject NavigationManager rotas
 
 <div class=" flex h-screen bg-Primaria bg-opacity-10">
     <div class="flex flex-col h-full w-[20%] ">
@@ -7,14 +9,35 @@
                 ToDo<sup class=" text-xs">&COPY;</sup>
             </h1>
         </div>
-        <div class="h-[80%] flex justify-center items-start">
+        <div class="h-[80%] flex justify-center items-start overflow-y-auto">
             <ul class=" w-[90%] p-1 text-Secundaria space-y-3">
                 <li><button
-                        class=" hover:border-Secundaria border-[transparent] border-2 transition-all p-2 text-left rounded-lg w-full">Minhas
-                        Listas</button></li>
+                        class=" hover:border-Secundaria border-[transparent] border-2 transition-all p-2 text-left rounded-lg w-full">Resumo</button>
+                </li>
                 <li>
                     <details>
-                        <summary>
+                        <summary class=" list-none">
+                            <h1
+                                class=" hover:border-Secundaria border-[transparent] border-2 transition-all p-2 text-left rounded-lg w-full">
+                                Listas de Tarefa</h1>
+                        </summary>
+                        <div class=" flex flex-col justify-center items-end space-y-2">
+                            <a href="/listas/nova" class=" w-[90%]">
+                                <button
+                                    class=" hover:border-Secundaria border-[transparent] border-opacity-10  border-2 transition-all p-2 text-left rounded-lg w-[90%]">Nova
+                                    Lista</button>
+                            </a>
+                            <a href="/listas" class=" w-[90%]">
+                                <button
+                                    class=" hover:border-Secundaria border-[transparent] border-2 transition-all p-2 text-left rounded-lg w-[90%]">Ver
+                                    Listas</button>
+                            </a>
+                        </div>
+                    </details>
+                </li>
+                <li>
+                    <details>
+                        <summary class=" list-none">
                             <h1
                                 class=" hover:border-Secundaria border-[transparent] border-2 transition-all p-2 text-left rounded-lg w-full">
                                 Tarefas</h1>
@@ -23,7 +46,7 @@
                             <a href="/tarefas/nova" class=" w-[90%]">
                                 <button
                                     class=" hover:border-Secundaria border-[transparent] border-opacity-10  border-2 transition-all p-2 text-left rounded-lg w-[90%]">Nova
-                                    Tarefas</button>
+                                    Tarefa</button>
                             </a>
                             <a href="/tarefas" class=" w-[90%]">
                                 <button
@@ -33,10 +56,26 @@
                         </div>
                     </details>
                 </li>
-                <li><a href="">
-                        <button
-                            class=" hover:border-Secundaria border-[transparent] border-2 transition-all p-2 text-left rounded-lg w-full">Categorias</button>
-                    </a>
+                <li>
+                    <details>
+                        <summary class=" list-none">
+                            <h1
+                                class=" hover:border-Secundaria border-[transparent] border-2 transition-all p-2 text-left rounded-lg w-full">
+                                Categorias</h1>
+                        </summary>
+                        <div class=" flex flex-col justify-center items-end space-y-2">
+                            <a href="/tarefas/nova" class=" w-[90%]">
+                                <button
+                                    class=" hover:border-Secundaria border-[transparent] border-opacity-10  border-2 transition-all p-2 text-left rounded-lg w-[90%]">Nova
+                                    Categoria</button>
+                            </a>
+                            <a href="/tarefas" class=" w-[90%]">
+                                <button
+                                    class=" hover:border-Secundaria border-[transparent] border-2 transition-all p-2 text-left rounded-lg w-[90%]">Ver
+                                    Categorias</button>
+                            </a>
+                        </div>
+                    </details>
                 </li>
                 <li><a href="">
                         <button
@@ -68,5 +107,10 @@
 
 @code {
 
+    protected override async Task OnInitializedAsync()
+    {
+        if (!(await api.Autenticado()))
+            rotas.NavigateTo("/");
+    }
 
 }

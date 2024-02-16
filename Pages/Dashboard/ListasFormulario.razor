@@ -1,0 +1,39 @@
+@page "/listas/nova"
+@page "/listas/{IDLista:int}"
+@layout DashboardLayout
+
+@if (EditarTarefa == true)
+{
+    <h1 class=" text-Intermedia">Editar tarefa!!</h1>
+}
+else
+{
+    <div class=" flex flex-col items-center ">
+        <div class="space-y-6 w-[90%]">
+            <div>
+                <h1 class=" text-2xl font-bold text-Primaria">Adicionar Nova Lista de Tarefas</h1>
+                <p class=" text-sm text-Secundaria">Insira um nome para sua lista de tarefas.</p>
+            </div>
+            <input type="text" placeholder="Nome da Lista"
+                class=" py-2 caret-Intermedia focus:outline-0 focus:border-b-Intermedia transition-all w-full border-b-2 border-Primaria">
+            <button class=" p-2 bg-Primaria rounded text-Neutra hover:scale-[1.05] transition-all">Adicionar lista</button>
+        </div>
+    </div>
+}
+
+
+
+@code {
+    [Parameter]
+    public int IDLista { get; set; }
+
+    bool EditarTarefa = false;
+
+    protected override void OnInitialized()
+    {
+        if (IDLista != 0)
+        {
+            EditarTarefa = true;
+        }
+    }
+}
