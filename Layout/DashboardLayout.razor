@@ -2,115 +2,148 @@
 @inject APIService api
 @inject NavigationManager rotas
 
-<div class=" flex h-screen bg-Primaria bg-opacity-10">
-    <div class="flex flex-col h-full w-[20%] ">
-        <div class=" h-[20%] flex justify-center items-center">
-            <h1 class=" text-Secundaria font-bold font-mono outline rounded-lg w-3/5 text-center text-5xl">
-                ToDo<sup class=" text-xs">&COPY;</sup>
-            </h1>
-        </div>
-        <div class="h-[80%] flex justify-center items-start overflow-y-auto">
-            <ul class=" w-[90%] p-1 text-Secundaria space-y-3">
-                <li><button
-                        class=" hover:border-Secundaria border-[transparent] border-2 transition-all p-2 text-left rounded-lg w-full">Resumo</button>
-                </li>
-                <li>
-                    <details>
-                        <summary class=" list-none">
-                            <h1
-                                class=" hover:border-Secundaria border-[transparent] border-2 transition-all p-2 text-left rounded-lg w-full">
-                                Listas de Tarefa</h1>
-                        </summary>
-                        <div class=" flex flex-col justify-center items-end space-y-2">
-                            <a href="/listas/nova" class=" w-[90%]">
-                                <button
-                                    class=" hover:border-Secundaria border-[transparent] border-opacity-10  border-2 transition-all p-2 text-left rounded-lg w-[90%]">Nova
-                                    Lista</button>
-                            </a>
-                            <a href="/listas" class=" w-[90%]">
-                                <button
-                                    class=" hover:border-Secundaria border-[transparent] border-2 transition-all p-2 text-left rounded-lg w-[90%]">Ver
-                                    Listas</button>
-                            </a>
-                        </div>
-                    </details>
-                </li>
-                <li>
-                    <details>
-                        <summary class=" list-none">
-                            <h1
-                                class=" hover:border-Secundaria border-[transparent] border-2 transition-all p-2 text-left rounded-lg w-full">
-                                Tarefas</h1>
-                        </summary>
-                        <div class=" flex flex-col justify-center items-end space-y-2">
-                            <a href="/tarefas/nova" class=" w-[90%]">
-                                <button
-                                    class=" hover:border-Secundaria border-[transparent] border-opacity-10  border-2 transition-all p-2 text-left rounded-lg w-[90%]">Nova
-                                    Tarefa</button>
-                            </a>
-                            <a href="/tarefas" class=" w-[90%]">
-                                <button
-                                    class=" hover:border-Secundaria border-[transparent] border-2 transition-all p-2 text-left rounded-lg w-[90%]">Ver
-                                    Tarefas</button>
-                            </a>
-                        </div>
-                    </details>
-                </li>
-                <li>
-                    <details>
-                        <summary class=" list-none">
-                            <h1
-                                class=" hover:border-Secundaria border-[transparent] border-2 transition-all p-2 text-left rounded-lg w-full">
-                                Categorias</h1>
-                        </summary>
-                        <div class=" flex flex-col justify-center items-end space-y-2">
-                            <a href="/tarefas/nova" class=" w-[90%]">
-                                <button
-                                    class=" hover:border-Secundaria border-[transparent] border-opacity-10  border-2 transition-all p-2 text-left rounded-lg w-[90%]">Nova
-                                    Categoria</button>
-                            </a>
-                            <a href="/tarefas" class=" w-[90%]">
-                                <button
-                                    class=" hover:border-Secundaria border-[transparent] border-2 transition-all p-2 text-left rounded-lg w-[90%]">Ver
-                                    Categorias</button>
-                            </a>
-                        </div>
-                    </details>
-                </li>
-                <li><a href="">
+
+@if (loaded)
+{
+    <div class=" flex h-screen bg-Primaria bg-opacity-10">
+        <div class="flex flex-col h-full w-[20%] ">
+            <div class=" h-[20%] flex justify-center items-center">
+                <h1 class=" text-Secundaria font-bold font-mono outline rounded-lg w-3/5 text-center text-5xl">
+                    ToDo<sup class=" text-xs">&COPY;</sup>
+                </h1>
+            </div>
+            <div class="h-[80%] flex justify-center items-start overflow-y-auto">
+                <ul class=" w-[90%] p-1 text-Secundaria space-y-3">
+                    <li>
                         <button
-                            class=" drop-shadow-md hover:border-Secundaria border-[transparent] border-2 transition-all p-2 text-left rounded-lg w-full">Noificações</button>
-                    </a>
-                </li>
-            </ul>
+                            class=" hover:border-Secundaria border-[transparent] border-2 transition-all p-2 text-left rounded-lg w-full">
+                            Resumo
+                        </button>
+                    </li>
+                    <li>
+                        <details>
+                            <summary class=" list-none">
+                                <h1
+                                    class=" hover:border-Secundaria border-[transparent] border-2 transition-all p-2 text-left rounded-lg w-full">
+                                    Listas de Tarefa
+                                </h1>
+                            </summary>
+                            <div class=" flex flex-col justify-center items-end space-y-2">
+                                <a href="/listas/nova" class=" w-[90%]">
+                                    <button
+                                        class=" hover:border-Secundaria border-[transparent] border-opacity-10  border-2 transition-all p-2 text-left rounded-lg w-[90%]">
+                                        Nova
+                                        Lista
+                                    </button>
+                                </a>
+                                <a href="/listas" class=" w-[90%]">
+                                    <button
+                                        class=" hover:border-Secundaria border-[transparent] border-2 transition-all p-2 text-left rounded-lg w-[90%]">
+                                        Ver
+                                        Listas
+                                    </button>
+                                </a>
+                            </div>
+                        </details>
+                    </li>
+                    <li>
+                        <details>
+                            <summary class=" list-none">
+                                <h1
+                                    class=" hover:border-Secundaria border-[transparent] border-2 transition-all p-2 text-left rounded-lg w-full">
+                                    Tarefas
+                                </h1>
+                            </summary>
+                            <div class=" flex flex-col justify-center items-end space-y-2">
+                                <a href="/tarefas/nova" class=" w-[90%]">
+                                    <button
+                                        class=" hover:border-Secundaria border-[transparent] border-opacity-10  border-2 transition-all p-2 text-left rounded-lg w-[90%]">
+                                        Nova
+                                        Tarefa
+                                    </button>
+                                </a>
+                                <a href="/tarefas" class=" w-[90%]">
+                                    <button
+                                        class=" hover:border-Secundaria border-[transparent] border-2 transition-all p-2 text-left rounded-lg w-[90%]">
+                                        Ver
+                                        Tarefas
+                                    </button>
+                                </a>
+                            </div>
+                        </details>
+                    </li>
+                    <li>
+                        <details>
+                            <summary class=" list-none">
+                                <h1
+                                    class=" hover:border-Secundaria border-[transparent] border-2 transition-all p-2 text-left rounded-lg w-full">
+                                    Categorias
+                                </h1>
+                            </summary>
+                            <div class=" flex flex-col justify-center items-end space-y-2">
+                                <a href="/tarefas/nova" class=" w-[90%]">
+                                    <button
+                                        class=" hover:border-Secundaria border-[transparent] border-opacity-10  border-2 transition-all p-2 text-left rounded-lg w-[90%]">
+                                        Nova
+                                        Categoria
+                                    </button>
+                                </a>
+                                <a href="/tarefas" class=" w-[90%]">
+                                    <button
+                                        class=" hover:border-Secundaria border-[transparent] border-2 transition-all p-2 text-left rounded-lg w-[90%]">
+                                        Ver
+                                        Categorias
+                                    </button>
+                                </a>
+                            </div>
+                        </details>
+                    </li>
+                    <li>
+                        <a href="">
+                            <button
+                                class=" drop-shadow-md hover:border-Secundaria border-[transparent] border-2 transition-all p-2 text-left rounded-lg w-full">
+                                Noificações
+                            </button>
+                        </a>
+                    </li>
+                </ul>
+            </div>
         </div>
-    </div>
-    <div class=" w-[80%]">
-        <div class=" h-[10%]  flex justify-center items-center">
-            <div class=" flex justify-center items-center w-4/5">
-                <div class=" outline-2 outline-Primaria outline rounded-lg flex w-[85%] ">
-                    <input type="search" class=" p-2 w-4/5">
-                    <button class=" bg-Primaria text-Neutra w-1/5">Pesquisar</button>
+        <div class=" w-[80%]">
+            <div class=" h-[10%]  flex justify-center items-center">
+                <div class=" flex justify-center items-center w-4/5">
+                    <div class=" outline-2 outline-Primaria outline rounded-lg flex w-[85%] ">
+                        <input type="search" class=" p-2 w-4/5">
+                        <button class=" bg-Primaria text-Neutra w-1/5">Pesquisar</button>
+                    </div>
+                </div>
+                <div class="w-1/5 flex justify-end space-x-2 mx-1">
+                    <div class=" w-12 h-12 rounded-full bg-Primaria"></div>
+                    <div class=" w-12 h-12 rounded-full bg-Primaria"></div>
                 </div>
             </div>
-            <div class="w-1/5 flex justify-end space-x-2 mx-1">
-                <div class=" w-12 h-12 rounded-full bg-Primaria"></div>
-                <div class=" w-12 h-12 rounded-full bg-Primaria"></div>
+            <div class=" bg-Neutra  overflow-y-auto rounded-tl-xl p-2 h-[90%]">
+                @Body
             </div>
         </div>
-        <div class=" bg-Neutra  overflow-y-auto rounded-tl-xl p-2 h-[90%]">
-            @Body
-        </div>
     </div>
-</div>
-
+}
+else
+{
+    <div class=" w-full flex flex-col h-full justify-center items-center">
+        <h1>Carregando...</h1>
+    </div>
+}
 
 @code {
+
+    bool loaded = false;
 
     protected override async Task OnInitializedAsync()
     {
         if (!(await api.Autenticado()))
             rotas.NavigateTo("/");
+        loaded = true;
     }
 
 }

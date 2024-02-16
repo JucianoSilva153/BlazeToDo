@@ -1,12 +1,26 @@
 <section class=" h-screen bg-Secundaria ">
     <div class=" flex p-4">
         <div class=" w-3/4 flex items-center">
-            <h1 class=" text-Primaria font-bold font-mono outline rounded w-2/4 text-center text-3xl">ToDo<sup
-                    class=" text-xs">&COPY;</sup> </h1>
+            <h1 class=" text-Primaria font-bold font-mono outline rounded w-2/4 text-center text-3xl">
+                ToDo
+                <sup
+                    class=" text-xs">
+                    &COPY;
+                </sup>
+            </h1>
         </div>
-        <div class=" w-1/4 flex items-center justify-end">
+        <div class=" w-1/4 flex items-center justify-end md:hidden">
             <img width="40" height="40" class=" hover:scale-110 transition-transform active:scale-100"
-                src="https://img.icons8.com/ios-filled/50/5688c7/menu--v6.png" alt="menu--v6" />
+                 src="https://img.icons8.com/ios-filled/50/5688c7/menu--v6.png" alt="menu--v6"/>
+        </div>
+        <div class=" w-1/4 md:flex text-Neutra items-center justify-end hidden">
+            <ul class=" flex space-x-8 font-bold ">
+                <li class=" hover:text-Primaria transition-all">Sobre</li>
+                <li class=" hover:text-Primaria transition-all">Como Funciona?</li>
+                <li class=" hover:text-Primaria transition-all ">
+                    <a href="/entrar">Entrar</a>
+                </li>
+            </ul>
         </div>
     </div>
 
@@ -14,16 +28,23 @@
         <div>
             <div class=" p-3 text-center text-Primaria">
                 <h1 class=" font-bold text-2xl m-3"> Lorem, <span class=" text-Neutra">ipsum dolor</span>.</h1>
-                <p class=" text-xl font-medium">Lorem ipsum, dolor sit amet consectetur adipisicing elit. <span
-                        class=" text-Neutra">Explicabo, in aliquam!</span> Impedit dolores molestiae inventore dolorum?
+                <p class=" text-xl font-medium">
+                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                    <span
+                        class=" text-Neutra">
+                        Explicabo, in aliquam!
+                    </span> Impedit dolores molestiae inventore dolorum?
                     Alias,
-                    enim in. Praesentium non animi inventore vel repellat provident quidem! Architecto, quas itaque!</p>
+                    enim in. Praesentium non animi inventore vel repellat provident quidem! Architecto, quas itaque!
+                </p>
             </div>
 
             <div class="flex justify-center my-2">
                 <button
-                    class=" border-[2px] border-Primaria hover:scale-110 active:scale-100 transition-all text-Primaria rounded p-2 font-semibold hover:bg-Primaria hover:text-Neutra">Lorem,
-                    ipsum.</button>
+                    class=" border-[2px] border-Primaria hover:scale-110 active:scale-100 transition-all text-Primaria rounded p-2 font-semibold hover:bg-Primaria hover:text-Neutra">
+                    Lorem,
+                    ipsum.
+                </button>
             </div>
         </div>
     </div>

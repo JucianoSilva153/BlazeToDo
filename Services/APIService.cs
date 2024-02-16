@@ -2,6 +2,7 @@
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Text.Json;
+using Microsoft.JSInterop;
 
 namespace BlazeToDo;
 
@@ -12,14 +13,19 @@ public class APIService
     private ContaLogadaDTO conta = new ContaLogadaDTO();
 
     private HttpClient client;
+    private double DuracaoCookie = 5.0 / (24.0 * 60.0);
 
-    public APIService()
+    private CookieService cookies;
+
+    public APIService( CookieService cookies)
     {
-        client = new HttpClient();
+        this.client = new HttpClient();
+        this.cookies = cookies;
     }
 
     public async Task<bool> Autenticado()
     {
+        await AtribuiTokenAoHeader();
         try
         {
             var response = await client.GetAsync($"{BaseURI}/api/Conta/Autenticado");
@@ -34,7 +40,7 @@ public class APIService
         }
         catch (System.Exception e)
         {
-             Console.WriteLine(e.Message);
+            Console.WriteLine(e.Message);
         }
 
         return false;
@@ -57,10 +63,9 @@ public class APIService
 
                 if (resultado.Sucesso)
                 {
-                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(
-                        "Bearer",
-                        resultado.Target.ToString()
-                    );
+
+                    await cookies.CriarCookie("token", resultado.Target.ToString(), DuracaoCookie);
+                    await AtribuiTokenAoHeader();
 
                     if (await RetornarContaPeloEmail(Email))
                         return true;
@@ -72,11 +77,13 @@ public class APIService
             Console.WriteLine(e.Message);
             return false;
         }
+
         return false;
     }
 
     private async Task<bool> RetornarContaPeloEmail(string email)
     {
+        AtribuiTokenAoHeader();
         try
         {
             var response = await client.GetFromJsonAsync<RequestResponse>(
@@ -96,7 +103,16 @@ public class APIService
             Console.WriteLine(e.Message);
             return false;
         }
+
         return false;
+    }
+
+    private async Task AtribuiTokenAoHeader()
+    {
+        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(
+            "Bearer",
+            await cookies.RetornarCookie("token")
+        );
     }
 
     public async Task<bool> CriarConta(AdicionarEditarContaDTO conta)
@@ -118,6 +134,7 @@ public class APIService
             Console.WriteLine(e.Message);
             return false;
         }
+
         return true;
     }
 }
