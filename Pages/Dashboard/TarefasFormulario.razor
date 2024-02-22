@@ -3,11 +3,6 @@
 @layout DashboardLayout
 
 
-
-
-
-
-
 @if (EditarTarefa == true)
 {
     <h1 class=" text-Intermedia">Editar tarefa!!</h1>
@@ -21,7 +16,7 @@ else
                 <p class=" text-sm text-Secundaria">Preeencha o formulario abaixo para adicionar uma nova tarefa.</p>
             </div>
             <input type="text" placeholder="Tarefa"
-                class=" py-2 caret-Intermedia focus:outline-0 focus:border-b-Intermedia transition-all w-full border-b-2 border-Primaria">
+                   class=" py-2 caret-Intermedia focus:outline-0 focus:border-b-Intermedia transition-all w-full border-b-2 border-Primaria">
 
             <div class=" flex space-x-4">
                 <select
@@ -34,10 +29,10 @@ else
                 </select>
 
                 <input type="date"
-                    class="py-2 caret-Intermedia focus:outline-0 focus:border-b-Intermedia transition-all w-full border-b-2 border-Primaria">
+                       class="py-2 caret-Intermedia focus:outline-0 focus:border-b-Intermedia transition-all w-full border-b-2 border-Primaria">
             </div>
 
-            <textarea rows="10" class=" border-2 border-Primaria w-full rounded-md"></textarea>
+            <textarea rows="10" class=" border-2 border-Primaria w-full rounded-md p-2"></textarea>
 
             <button class=" p-2 bg-Primaria rounded text-Neutra hover:scale-[1.05] transition-all">Adicionar tarefa</button>
         </div>
@@ -45,19 +40,15 @@ else
 }
 
 
-
 @code {
-    [Parameter]
-    public int IDTarefa { get; set; }
+    [Parameter] public int IDTarefa { get; set; }
 
     bool EditarTarefa = false;
 
     protected override void OnInitialized()
     {
         if (IDTarefa != 0)
-        {
             EditarTarefa = true;
-        }
     }
 
 }

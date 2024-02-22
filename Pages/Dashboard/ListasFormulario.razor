@@ -1,5 +1,7 @@
 @page "/listas/nova"
 @page "/listas/{IDLista:int}"
+@inject APIService api
+@inject NavigationManager rota
 @layout DashboardLayout
 
 @if (EditarTarefa == true)
@@ -14,18 +16,18 @@ else
                 <h1 class=" text-2xl font-bold text-Primaria">Adicionar Nova Lista de Tarefas</h1>
                 <p class=" text-sm text-Secundaria">Insira um nome para sua lista de tarefas.</p>
             </div>
-            <input type="text" placeholder="Nome da Lista"
-                class=" py-2 caret-Intermedia focus:outline-0 focus:border-b-Intermedia transition-all w-full border-b-2 border-Primaria">
-            <button class=" p-2 bg-Primaria rounded text-Neutra hover:scale-[1.05] transition-all">Adicionar lista</button>
+            <input type="text" placeholder="Nome da Lista" @bind="NomeTarefa"
+                   class=" py-2 caret-Intermedia focus:outline-0 focus:border-b-Intermedia transition-all w-full border-b-2 border-Primaria">
+            <button @onclick="NovaLista" class=" p-2 bg-Primaria rounded text-Neutra hover:scale-[1.05] transition-all">Adicionar lista</button>
         </div>
     </div>
 }
 
 
-
 @code {
-    [Parameter]
-    public int IDLista { get; set; }
+    [Parameter] public int IDLista { get; set; }
+
+    string NomeTarefa = "";
 
     bool EditarTarefa = false;
 
@@ -36,4 +38,14 @@ else
             EditarTarefa = true;
         }
     }
+
+    async void NovaLista()
+    {
+        if (NomeTarefa != string.Empty)
+            if (await api.CriarListaDeTarefa(NomeTarefa))
+            {
+                rota.NavigateTo("/listas");
+            }
+    }
+
 }
