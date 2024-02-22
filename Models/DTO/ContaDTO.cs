@@ -1,10 +1,16 @@
-﻿namespace BlazeToDo;
+﻿using System.Text.Json.Serialization;
 
-public record ContaLogadaDTO()
+namespace BlazeToDo;
+
+public class ContaLogadaDTO()
 {
+    [JsonPropertyName("Id")]
     public int Id { get; set; }
+    [JsonPropertyName("Nome")]
     public string Nome { get; set; }
+    [JsonPropertyName("Email")]
     public string Email { get; set; }
+    [JsonPropertyName("Contacto")]
     public int Contacto { get; set; }
 }
 
