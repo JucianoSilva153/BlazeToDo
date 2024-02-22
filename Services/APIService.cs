@@ -1,8 +1,8 @@
 ﻿using System.Net;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
-using System.Text.Json;
 using Microsoft.JSInterop;
+using Newtonsoft.Json;
 
 namespace BlazeToDo;
 
@@ -10,14 +10,14 @@ public class APIService
 {
     public readonly string BaseURI = "http://localhost:5240";
 
-    private ContaLogadaDTO conta = new ContaLogadaDTO();
+    public ContaLogadaDTO conta = new ContaLogadaDTO();
 
     private HttpClient client;
     private double DuracaoCookie = 5.0 / (24.0 * 60.0);
 
     private CookieService cookies;
 
-    public APIService( CookieService cookies)
+    public APIService(CookieService cookies)
     {
         this.client = new HttpClient();
         this.cookies = cookies;
@@ -63,7 +63,6 @@ public class APIService
 
                 if (resultado.Sucesso)
                 {
-
                     await cookies.CriarCookie("token", resultado.Target.ToString(), DuracaoCookie);
                     await AtribuiTokenAoHeader();
 
@@ -92,10 +91,17 @@ public class APIService
 
             if (response.Sucesso)
             {
-                conta = JsonSerializer.Deserialize<ContaLogadaDTO>(response.Target.ToString());
+                try
+                {
+                    conta = JsonConvert.DeserializeObject<ContaLogadaDTO>(response.Target.ToString());
 
-                if (conta is not null)
-                    return true;
+                    if (conta is not null)
+                        return true;
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }
             }
         }
         catch (System.Exception e)
@@ -115,6 +121,49 @@ public class APIService
         );
     }
 
+    public async Task<List<ListaAlteraListaTarefaDTO>> ListarListas()
+    {
+        try
+        {
+            var response = await client.GetFromJsonAsync<RequestResponse>($"{BaseURI}/api/Listas");
+            if (response.Sucesso)
+            {
+                var resultado =
+                    JsonConvert.DeserializeObject<List<ListaAlteraListaTarefaDTO>>(response.Target.ToString());
+                if (resultado is not null)
+                    return resultado;
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+        }
+
+        return new List<ListaAlteraListaTarefaDTO>();
+    }
+
+    public async Task<List<ListaAlteraCategorias>> ListarCategorias()
+    {
+        try
+        {
+            var response = await client.GetFromJsonAsync<RequestResponse>($"{BaseURI}/api/Categorias");
+
+            if (response.Sucesso)
+            {
+                var lista = JsonConvert.DeserializeObject<List<ListaAlteraCategorias>>(response.Target.ToString());
+                if (lista is not null)
+                    return lista;
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+
+        return new List<ListaAlteraCategorias>();
+    }
+    
     public async Task<bool> CriarConta(AdicionarEditarContaDTO conta)
     {
         try
@@ -136,5 +185,50 @@ public class APIService
         }
 
         return true;
+    }
+
+    public async Task<bool> CriarCategoria(CriaCategoriaDTO categoria)
+    {
+        try
+        {
+            var response = await client.PostAsJsonAsync<CriaCategoriaDTO>($"{BaseURI}/api/Categorias", categoria);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var sucesso = await response.Content.ReadFromJsonAsync<RequestResponse>();
+                if (sucesso.Sucesso)
+                    return true;
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+
+        return false;
+    }
+
+    public async Task<bool> CriarListaDeTarefa(string NomeLista)
+    {
+        try
+        {
+            var response = await client.PostAsJsonAsync<CriaListaTarefasDTO>($"{BaseURI}/api/Listas",
+                new CriaListaTarefasDTO()
+                {
+                    Lista = NomeLista,
+                    ContaID = conta.Id
+                });
+
+            if (response.IsSuccessStatusCode)
+                return true;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e.Message);
+            return false;
+        }
+
+        return false;
     }
 }
