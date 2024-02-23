@@ -1,6 +1,6 @@
 <section class=" h-screen bg-Secundaria ">
     <div class=" flex p-4">
-        <div class=" w-3/4 flex items-center">
+        <div class=" w-3/4 md:w-[50%] flex items-center">
             <h1 class=" text-Primaria font-bold font-mono outline rounded w-2/4 text-center text-3xl">
                 ToDo
                 <sup
@@ -10,10 +10,10 @@
             </h1>
         </div>
         <div class=" w-1/4 flex items-center justify-end md:hidden">
-            <img width="40" height="40" class=" hover:scale-110 transition-transform active:scale-100"
+            <img width="40" height="40" onclick="MostrarMenu()" class=" hover:scale-110 transition-transform active:scale-100"
                  src="https://img.icons8.com/ios-filled/50/5688c7/menu--v6.png" alt="menu--v6"/>
         </div>
-        <div class=" w-1/4 md:flex text-Neutra items-center justify-end hidden">
+        <div class=" w-[50%] md:flex text-Neutra items-center justify-end hidden">
             <ul class=" flex space-x-8 font-bold ">
                 <li class=" hover:text-Primaria transition-all">Sobre</li>
                 <li class=" hover:text-Primaria transition-all">Como Funciona?</li>
@@ -22,9 +22,31 @@
                 </li>
             </ul>
         </div>
+
+    </div>
+    <div class=" bg-Neutra absolute w-[100%] h-[100%] top-0 right-0 hidden" id="MenuHumburguer">
+        <div class="w-full flex p-3">
+            <div class=" w-3/4 flex items-center">
+                <h1 class=" text-Primaria font-bold font-mono outline rounded w-[50%] text-center text-3xl">
+                    ToDo
+                </h1>
+            </div>
+            <div class="w-[25%] flex justify-end">
+                <img width="40" height="40" onclick="OcultarMenu()" class=" hover:scale-110 transition-transform active:scale-100"
+                     src="https://img.icons8.com/ios-filled/50/5688c7/delete-sign--v1.png" alt="delete-sign--v1" alt="menu--v6"/>
+            </div>
+        </div>
+
+        <ul class=" flex p-2 space-y-6 flex-col font-bold ">
+            <li class=" hover:text-Primaria transition-all">Como Funciona?</li>
+            <li class=" hover:text-Primaria transition-all">Sobre</li>
+            <li class=" hover:text-Primaria transition-all ">
+                <a href="/entrar">Entrar</a>
+            </li>
+        </ul>
     </div>
 
-    <div class=" mt-12 lg:mt-0 lg:flex h-full lg:justify-center lg:items-center">
+    <div class=" mt-12 lg:mt-0 md:mt-0 lg:flex md:flex h-full justify-center items-center">
         <div>
             <div class=" p-3 text-center text-Primaria">
                 <h1 class=" font-bold text-2xl m-3"> Lorem, <span class=" text-Neutra">ipsum dolor</span>.</h1>
