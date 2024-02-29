@@ -209,6 +209,23 @@ public class APIService
         return false;
     }
 
+    public async Task<bool> EliminarCategoria(int IdCategoria)
+    {
+        try
+        {
+            var response = await client.DeleteFromJsonAsync<RequestResponse>($"{BaseURI}/api/Categorias/{IdCategoria}");
+            if (response.Sucesso)
+                return true;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+
+        return false;
+    }
+    
     public async Task<bool> CriarListaDeTarefa(string NomeLista)
     {
         try

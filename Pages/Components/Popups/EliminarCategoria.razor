@@ -1,0 +1,46 @@
+@inject APIService api
+@inject IJSRuntime js
+
+
+<div id="popEliminarCategoria" class="absolute w-[100%] h-[100%] bg-Secundaria bg-opacity-60 z-50 flex justify-center items-center">
+    <div class=" shadow-md flex flex-col shadow-Primaria rounded-md p-2 w-[45%] m-2 bg-Neutra">
+        <div class=" flex flex-col justify-center h-[50%] items-center text-center p-1">
+            <div class=" w-[50%] text-Primaria">
+                <h1 class=" font-bold">Tem certeza que deseja Eliminar essa Categoria?</h1>
+            </div>
+            <div class=" w-[50%] text-Secundaria">
+                <h2>@Categoria.Categoria</h2>
+            </div>
+        </div>
+        <div class=" flex space-x-4 justify-center text-center h-[25%]">
+            <button @onclick="Eliminar" class=" p-2 bg-Primaria w-[30%] rounded text-Neutra hover:scale-[1.05] transition-all">
+                Eliminar
+            </button>
+            <button class=" p-2 bg-Primaria w-[30%] rounded text-Neutra hover:scale-[1.05] transition-all" onclick="OcultarEliminarCategoria()">
+                Cancelar
+            </button>
+            @TextoErro
+        </div>
+    </div>
+</div>
+
+
+@code {
+    
+    [Parameter] public ListaAlteraCategorias Categoria { get; set; }
+    string TextoErro = "";
+
+    async void Eliminar()
+    {
+        if (await api.EliminarCategoria(Categoria.Id))
+        {
+            await js.InvokeVoidAsync("OcultarEliminarCategoria");
+            StateHasChanged();
+        }
+        else
+        {
+            TextoErro = "Erro ao eliminar Categoria!!";
+        }
+    }
+
+}
