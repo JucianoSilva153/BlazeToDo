@@ -1,6 +1,4 @@
 @page "/cadastro"
-@inject NavigationManager rota
-@inject APIService api
 
 <div class=" flex justify-center items-center h-screen">
     <div
@@ -63,7 +61,7 @@
             Conta.Nome += $" {Sobrenome}";
             if (await api.CriarConta(Conta))
             {
-                rota.NavigateTo("/entrar");
+                Rota.NavigateTo("/entrar");
             }
             else
             {

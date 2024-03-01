@@ -1,6 +1,4 @@
 @page "/entrar"
-@inject NavigationManager rotas
-@inject APIService api
 
 <div class=" flex justify-center items-center h-screen">
     <div
@@ -66,7 +64,7 @@
 
             TextoBotao = "Processando...";
             if (await api.Autenticar(Email, Password))
-                rotas.NavigateTo("/admin");
+                Rota.NavigateTo("/admin");
 
             TextoBotao = "Entrar";
             TextoErro = "Ocorreu um erro ao fazer Login. Tente Novamente";

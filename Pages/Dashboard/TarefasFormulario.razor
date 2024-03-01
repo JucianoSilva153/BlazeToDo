@@ -1,6 +1,7 @@
 @page "/tarefas/nova"
 @page "/tarefas/{IDTarefa:int}"
 @layout DashboardLayout
+@inject APIService api
 
 
 @if (EditarTarefa == true)
@@ -16,25 +17,45 @@ else
                 <p class=" text-sm text-Secundaria">Preeencha o formulario abaixo para adicionar uma nova tarefa.</p>
             </div>
             <input type="text" placeholder="Tarefa"
+                   @bind="Tarefa.Tarefa"
                    class=" py-2 caret-Intermedia focus:outline-0 focus:border-b-Intermedia transition-all w-full border-b-2 border-Primaria">
 
             <div class=" flex space-x-4">
                 <select
+                    @bind="Tarefa.Categoria"
                     class=" py-2 caret-Intermedia focus:outline-0 focus:border-b-Intermedia transition-all w-full border-b-2 border-Primaria">
                     <option selected>Categoria</option>
+                    @foreach (var categoria in Categorias)
+                    {
+                        <option value="@categoria.Categoria">@categoria.Categoria</option>
+                    }
                 </select>
                 <select
+                    @bind="Tarefa.Lista"
                     class=" py-2 caret-Intermedia focus:outline-0 focus:border-b-Intermedia transition-all w-full border-b-2 border-Primaria">
                     <option selected>Lista</option>
+                    @foreach (var lista in Listas)
+                    {
+                        <option value="@lista.Lista">@lista.Lista</option>
+                    }
                 </select>
-
+                <select
+                    @bind="Tarefa.Prioridade"
+                    class=" py-2 caret-Intermedia focus:outline-0 focus:border-b-Intermedia transition-all w-full border-b-2 border-Primaria">
+                    <option selected>Prioridade</option>
+                    <option value="alta">Alta</option>
+                    <option value="media">Media</option>
+                    <option value="baixa">Baixa</option>
+                </select>
                 <input type="date"
+                       @bind="Tarefa.Conclusao"
                        class="py-2 caret-Intermedia focus:outline-0 focus:border-b-Intermedia transition-all w-full border-b-2 border-Primaria">
             </div>
 
-            <textarea rows="10" class=" border-2 border-Primaria w-full rounded-md p-2"></textarea>
+            <textarea rows="10" class=" border-2 border-Primaria w-full rounded-md p-2" @bind="Tarefa.Descricao"></textarea>
 
-            <button class=" p-2 bg-Primaria rounded text-Neutra hover:scale-[1.05] transition-all">Adicionar tarefa</button>
+            <button class=" p-2 bg-Primaria rounded text-Neutra hover:scale-[1.05] transition-all" @onclick="NovaTarefa">@TextoBotao</button>
+            <p class="text-[red]">@TextoErro</p>
         </div>
     </div>
 }
@@ -42,13 +63,39 @@ else
 
 @code {
     [Parameter] public int IDTarefa { get; set; }
+    public CriaTarefaDTO Tarefa { get; set; } = new CriaTarefaDTO();
+    public List<ListaAlteraCategorias> Categorias { get; set; } = new List<ListaAlteraCategorias>();
+    public List<ListaAlteraListaTarefaDTO> Listas { get; set; } = new List<ListaAlteraListaTarefaDTO>();
+    string TextoBotao = "Adicionar tarefa";
+    string TextoErro = "";
 
     bool EditarTarefa = false;
 
-    protected override void OnInitialized()
+    protected override async void OnInitialized()
     {
         if (IDTarefa != 0)
             EditarTarefa = true;
+        await SetarDados();
+    }
+
+    async void NovaTarefa()
+    {
+        TextoBotao = "Processando...";
+        if (await api.CriarTarefa(Tarefa))
+        {
+            Rota.NavigateTo("/tarefas");
+        }
+
+        TextoBotao = "Adicionar tarefas";
+        TextoErro = "Erro ao adicionar Tarefa";
+    }
+
+    async Task SetarDados()
+    {
+        Listas = await api.ListarListas();
+        Categorias = await api.ListarCategorias();
+        Tarefa.Conclusao = DateTime.Now;
+        StateHasChanged();
     }
 
 }

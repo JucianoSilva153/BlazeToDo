@@ -1,7 +1,5 @@
 @page "/listas/nova"
 @page "/listas/{IDLista:int}"
-@inject APIService api
-@inject NavigationManager rota
 @layout DashboardLayout
 
 @if (EditarTarefa == true)
@@ -44,7 +42,7 @@ else
         if (NomeTarefa != string.Empty)
             if (await api.CriarListaDeTarefa(NomeTarefa))
             {
-                rota.NavigateTo("/listas");
+                Rota.NavigateTo("/listas");
             }
     }
 

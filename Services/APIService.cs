@@ -163,6 +163,28 @@ public class APIService
 
         return new List<ListaAlteraCategorias>();
     }
+
+    public async Task<List<ListaTarefaDTO>> ListarTarefas()
+    {
+        try
+        {
+            var response = await client.GetFromJsonAsync<RequestResponse>($"{BaseURI}/api/Tarefas");
+
+            if (response.Sucesso)
+            {
+                var tarefas = JsonConvert.DeserializeObject<List<ListaTarefaDTO>>(response.Target.ToString());
+                if (tarefas is not null)
+                    return tarefas;
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+
+        return new List<ListaTarefaDTO>();
+    }
     
     public async Task<bool> CriarConta(AdicionarEditarContaDTO conta)
     {
@@ -187,6 +209,24 @@ public class APIService
         return true;
     }
 
+    public async Task<bool> CriarTarefa(CriaTarefaDTO tarefa)
+    {
+        try
+        {
+            var response = await client.PostAsJsonAsync<CriaTarefaDTO>($"{BaseURI}/api/Tarefas", tarefa);
+            if (response.IsSuccessStatusCode)
+            {
+                return true;
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e.Message);
+        }
+
+        return false;
+    }
+    
     public async Task<bool> CriarCategoria(CriaCategoriaDTO categoria)
     {
         try
