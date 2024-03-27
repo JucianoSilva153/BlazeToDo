@@ -18,8 +18,16 @@
                 <input type="password" placeholder="Palavra-passe" name="" @bind-value="Password" required
                        class=" py-2 caret-Intermedia focus:outline-0 focus:border-b-Intermedia transition-all w-full border-b-2 border-Primaria">
                 <button @onclick="Login"
-                        class=" p-2 w-full bg-Primaria rounded text-Neutra hover:scale-[1.05] transition-all">
-                    @TextoBotao
+                        class=" p-2 w-full bg-Primaria rounded flex justify-center items-center space-x-2 text-Neutra hover:scale-[1.05] transition-all">
+                    @if (Procesando)
+                    {
+                        <div class="process"></div>
+                        <span>@TextoBotao</span>
+                    }
+                    else
+                    {
+                        <span>@TextoBotao</span>
+                    }
                 </button>
             </div>
             <div class=" flex flex-wrap text-center">
@@ -33,14 +41,12 @@
                         </a>
                     </span>
                 </span>
+                <div class="process"></div>
                 <span class=" text-sm text-Primaria w-full">
                     <a href="">
                         Esqueceu sua Palavra
                         Palavra-passe?
                     </a>
-                </span>
-                <span class=" text-sm text-[red] w-full">
-                    <a href="">@TextoErro</a>
                 </span>
             </div>
         </div>
@@ -54,24 +60,24 @@
     string Password = "";
 
     string TextoBotao = "Entrar";
-    string TextoErro = "";
+    bool Procesando = false;
 
     async Task Login()
     {
         if (Email != "" && Password != "")
         {
-            TextoErro = "";
+            Procesando = true;
 
             TextoBotao = "Processando...";
             if (await api.Autenticar(Email, Password))
                 Rota.NavigateTo("/admin");
 
             TextoBotao = "Entrar";
-            TextoErro = "Ocorreu um erro ao fazer Login. Tente Novamente";
+            Procesando = false;
         }
         else
         {
-            TextoErro = "Por favor, preencha todos os campos acima!";
+            TextoBotao = "Por favor, preencha todos os campos acima!";
         }
     }
 

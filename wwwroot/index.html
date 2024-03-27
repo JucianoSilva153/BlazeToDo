@@ -2,27 +2,26 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>BlazeToDo</title>
-    <base href="/" />
-    <link rel="stylesheet" href="css/app.css" />
-    
+    <base href="/"/>
+    <link rel="stylesheet" href="css/app.css"/>
+
     <!-- If you add any scoped CSS files, uncomment the following to load them
     <link href="BlazeToDo.styles.css" rel="stylesheet" /> -->
 </head>
 
 <body class=" font-sans" id="main">
-    <div id="app">
-        <svg class="loading-progress">
-            <circle r="40%" cx="50%" cy="50%" />
-            <circle r="40%" cx="50%" cy="50%" />
-        </svg>
-        <div class="loading-progress-text text-Primaria"></div>
+<div id="app">
+    <div class="Loading"> 
+        <div class="loader"></div>
     </div>
-    <script src="_framework/blazor.webassembly.js"></script>
-    <script src="js/Cookies.js"></script>
-    <script src="js/script.js"></script>
+    <div class="loading-progress-text text-Primaria"></div>
+</div>
+<script src="_framework/blazor.webassembly.js"></script>
+<script src="js/Cookies.js"></script>
+<script src="js/script.js"></script>
 </body>
 
 </html>

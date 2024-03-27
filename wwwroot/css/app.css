@@ -634,8 +634,16 @@ video {
   height: 25%;
 }
 
+.h-\[250px\] {
+  height: 250px;
+}
+
 .h-\[30\%\] {
   height: 30%;
+}
+
+.h-\[33\%\] {
+  height: 33%;
 }
 
 .h-\[35\%\] {
@@ -1094,7 +1102,7 @@ video {
 /* Handle */
 
 ::-webkit-scrollbar-thumb {
-  background: #5688C7 ;
+  background: #5688C7;
   border-radius: 5px;
 }
 
@@ -1102,6 +1110,60 @@ video {
 
 ::-webkit-scrollbar-thumb:hover {
   background: #2191fb;
+}
+
+.Loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* HTML: <div class="loader"></div> */
+
+.loader {
+  width: 50px;
+  aspect-ratio: 1;
+  --_c: no-repeat radial-gradient(farthest-side, #2c4669 92%, #0000);
+  background: var(--_c) top,
+    var(--_c) left,
+    var(--_c) right,
+    var(--_c) bottom;
+  background-size: 12px 12px;
+  animation: l7 1s infinite;
+}
+
+@keyframes l7 {
+  to {
+    transform: rotate(.5turn)
+  }
+}
+
+/* HTML: <div class="process"></div> */
+
+.process {
+  width: 40px;
+  aspect-ratio: 4;
+  --_g: no-repeat radial-gradient(circle closest-side, white 90%, #0000);
+  background: var(--_g) 0% 50%,
+    var(--_g) 50% 50%,
+    var(--_g) 100% 50%;
+  background-size: calc(100% / 3) 100%;
+  animation: l8 1s infinite linear;
+}
+
+@keyframes l8 {
+  33% {
+    background-size: calc(100% / 3) 0%, calc(100% / 3) 100%, calc(100% / 3) 100%
+  }
+
+  50% {
+    background-size: calc(100% / 3) 100%, calc(100% / 3) 0%, calc(100% / 3) 100%
+  }
+
+  66% {
+    background-size: calc(100% / 3) 100%, calc(100% / 3) 100%, calc(100% / 3) 0%
+  }
 }
 
 .even\:bg-Intermedia:nth-child(even) {

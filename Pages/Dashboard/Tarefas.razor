@@ -31,20 +31,20 @@
         <div class=" flex flex-wrap">
             @foreach (var tarefa in ListaTarefas)
             {
-                <div class=" shadow-md flex flex-col shadow-Primaria rounded-md p-2 w-[31%] h-[35%] m-2">
-                    <div class=" flex border-b-2 border-Primaria p-1">
+                <div class=" shadow-md flex flex-col h-[250px] shadow-Primaria rounded-md p-2 w-[31%]  m-2">
+                    <div class=" flex h-[33%] border-b-2 border-Primaria p-1">
                         <div class=" w-[50%] text-Primaria">
                             <h1 class=" font-bold">@tarefa.Tarefa</h1>
                             <h2 class=" text-xs text-Secundaria font-medium">@tarefa.Categoria</h2>
                         </div>
-                        <div class=" text-right w-[50%] text-Secundaria">
-                            <h2>Ate @tarefa.Conclusao</h2>
+                        <div class=" text-right w-[50%] text-sm text-Secundaria">
+                            <h2>Até @DataConclusao(@tarefa.Conclusao)</h2>
                         </div>
                     </div>
-                    <div class=" py-2 text-Secundaria\">
+                    <div class=" py-2 h-[33%] text-Secundaria\">
                         <p>@tarefa.Descricao</p>
                     </div>
-                    <div class=" text-center">
+                    <div class=" h-[33%] text-center">
                         <button class=" p-2 bg-Primaria w-[80%] rounded text-Neutra hover:scale-[1.05] transition-all">
                             Ver mais...
                         </button>
@@ -63,5 +63,37 @@
     {
         ListaTarefas = await api.ListarTarefas();
         StateHasChanged();
+    }
+
+    private string DataConclusao(DateTime data)
+    {
+        var dia = data.DayOfWeek switch
+        {
+               DayOfWeek.Friday => "Sexta-Feira",
+               DayOfWeek.Monday => "Segunda-Feira",
+               DayOfWeek.Tuesday => "Terça-Feira",
+               DayOfWeek.Wednesday => "Quarta-Feira",
+               DayOfWeek.Thursday => "Quinta-Feira",
+               DayOfWeek.Saturday => "Sábado",
+               DayOfWeek.Sunday => "Domingo"
+        };
+
+        var Mes = data.Month switch
+        {
+            1 => "Janeiro",
+            2 => "Fevereiro",
+            3 => "Março",
+            4 => "Abril",
+            5 => "Maio",
+            6 => "Junho",
+            7 => "Julho",
+            8 => "Agosto",
+            9 => "Setembro",
+            10 => "Outubro",
+            11 => "Novembro",
+            12 => "Dezembro"
+        };
+
+        return $"{dia}, {data.Day} de {Mes} de {data.Year}";
     }
 }
