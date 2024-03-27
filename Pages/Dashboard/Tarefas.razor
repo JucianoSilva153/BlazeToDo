@@ -1,4 +1,6 @@
 @page "/tarefas"
+@page "/tarefas/categoria/{NomeCategoria}"
+@page "/tarefas/lista/{NomeLista}"
 @layout DashboardLayout
 
 
@@ -57,11 +59,21 @@
 
 @code
 {
+    [Parameter] public string NomeCategoria { get; set; } = "";
+    [Parameter] public string NomeLista { get; set; } = "";
     public List<ListaTarefaDTO> ListaTarefas { get; set; } = new List<ListaTarefaDTO>();
 
     protected override async void OnInitialized()
     {
         ListaTarefas = await api.ListarTarefas();
+        if (!string.IsNullOrEmpty(NomeCategoria))
+        {
+            ListaTarefas = ListaTarefas.FindAll(l => l.Categoria == NomeCategoria);
+        }
+        else if (!string.IsNullOrEmpty(NomeLista))
+        {
+            ListaTarefas = ListaTarefas.FindAll(l => l.ListaPertencente == NomeLista);
+        }
         StateHasChanged();
     }
 
@@ -69,13 +81,13 @@
     {
         var dia = data.DayOfWeek switch
         {
-               DayOfWeek.Friday => "Sexta-Feira",
-               DayOfWeek.Monday => "Segunda-Feira",
-               DayOfWeek.Tuesday => "Terça-Feira",
-               DayOfWeek.Wednesday => "Quarta-Feira",
-               DayOfWeek.Thursday => "Quinta-Feira",
-               DayOfWeek.Saturday => "Sábado",
-               DayOfWeek.Sunday => "Domingo"
+            DayOfWeek.Friday => "Sexta-Feira",
+            DayOfWeek.Monday => "Segunda-Feira",
+            DayOfWeek.Tuesday => "Terça-Feira",
+            DayOfWeek.Wednesday => "Quarta-Feira",
+            DayOfWeek.Thursday => "Quinta-Feira",
+            DayOfWeek.Saturday => "Sábado",
+            DayOfWeek.Sunday => "Domingo"
         };
 
         var Mes = data.Month switch

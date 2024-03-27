@@ -18,14 +18,14 @@
                             <h1 class=" font-bold">@lista.Lista</h1>
                         </div>
                         <div class=" w-[50%] text-Secundaria">
-                            <h2>0 Tarefas</h2>
+                            <h2>@lista.NumeroTarefas Tarefas</h2>
                         </div>
                     </div>
                     <div class=" py-2 text-Secundaria h-[25%]">
                         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
                     </div>
                     <div class=" text-center h-[25%]">
-                        <button class=" p-2 bg-Primaria w-[80%] rounded text-Neutra hover:scale-[1.05] transition-all">Ver
+                        <button @onclick="() => VerTarefa(lista.Lista)" class=" p-2 bg-Primaria w-[80%] rounded text-Neutra hover:scale-[1.05] transition-all">Ver
                             Tarefas</button>
                     </div>
                 </div>   
@@ -42,6 +42,11 @@
     {
         listas = await api.ListarListas();
         StateHasChanged();
+    }
+
+    void VerTarefa(string NomeCategoria)
+    {
+        Rota.NavigateTo($"/tarefas/lista/{NomeCategoria}");
     }
 }
 

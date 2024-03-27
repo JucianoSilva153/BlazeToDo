@@ -27,11 +27,11 @@
                             <h1 class=" font-bold">@categoria.Categoria</h1>
                         </div>
                         <div class=" w-[50%] text-Secundaria">
-                            <h2>@categoria.Id Tarefas</h2>
+                            <h2>@categoria.NumeroTarefas Tarefas</h2>
                         </div>
                     </div>
                     <div class=" text-center h-[25%]">
-                        <button class=" p-2 bg-Primaria w-[80%] rounded text-Neutra hover:scale-[1.05] transition-all">
+                        <button @onclick="() => VerTarefa(categoria.Categoria)" class=" p-2 bg-Primaria w-[80%] rounded text-Neutra hover:scale-[1.05] transition-all">
                             Ver
                             Tarefas
                         </button>
@@ -60,6 +60,11 @@
         MostrarPopup = true;
         await js.InvokeVoidAsync("MostrarEliminarCategoria");
         StateHasChanged();
+    }
+
+    void VerTarefa(string NomeCategoria)
+    {
+        Rota.NavigateTo($"/tarefas/categoria/{NomeCategoria}");
     }
 
 }
