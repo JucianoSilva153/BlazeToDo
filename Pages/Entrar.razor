@@ -1,4 +1,6 @@
 @page "/entrar"
+@inject APIService api
+@inject NavigationManager rota
 
 <div class=" flex justify-center items-center h-screen">
     <div
@@ -61,6 +63,14 @@
 
     string TextoBotao = "Entrar";
     bool Procesando = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (await api.Autenticado())
+        {
+            rota.NavigateTo("/admin");
+        }
+    }
 
     async Task Login()
     {

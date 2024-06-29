@@ -3,7 +3,7 @@
 @layout DashboardLayout
 
 <div class=" h-full flex flex-col w-full">
-    <div class="  h-[20%] flex space-x-3 justify-center p-4">
+    <div class="  h-[20%] flex space-x-3 justify-center p-4 z-10 ">
         <div
             class=" bg-Primaria w-[200px] rounded-2xl flex flex-wrap flex-col text-center h-[100px] justify-center items-center ">
             <h1 class=" w-full text-Neutra text-3xl">@NumeroTarefas</h1>
@@ -48,7 +48,14 @@
                             <td>@tarefa.Categoria</td>
                             <td>@tarefa.ListaPertencente</td>
                             <td>
-                                <input type="radio" name="" @{ SetarEstadoTarefa(tarefa.Concluida); } id="">
+                                @if (tarefa.Concluida)
+                                {
+                                    <input type="radio" disabled checked>
+                                }
+                                else
+                                {
+                                    <input type="radio">
+                                }
                             </td>
                         </tr>
                     }
@@ -70,7 +77,6 @@
         if (Tarefas == null)
         {
             Tarefas = new List<ListaTarefaDTO>();
-            
         }
     }
 

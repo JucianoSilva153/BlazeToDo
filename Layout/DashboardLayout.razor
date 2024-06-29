@@ -1,6 +1,7 @@
 @inherits LayoutComponentBase
 @inject APIService api
 @inject NavigationManager rotas
+@inject IJSRuntime js
 
 
 @if (loaded)
@@ -115,7 +116,29 @@
                 </div>
                 <div class="w-1/5 flex justify-end space-x-2 mx-1">
                     <div class=" w-12 h-12 rounded-full bg-Primaria"></div>
-                    <div class=" w-12 h-12 rounded-full bg-Primaria"></div>
+                    <div class=" w-12 h-12 rounded-full bg-Primaria relative" @onclick="MostrarMenu"></div>
+                    <div id="Menu" class=" hidden flex-col w-[25%] h-[55%] absolute bg-Neutra z-[100] shadow-Primaria shadow-md rounded-lg top-[10%] right-[2%]">
+                        <div class=" flex border-b-[2px] border-b-Primaria p-2 py-4">
+                            <h1 class="text-xl w-[90%] font-bold text-Primaria">Notificacoes <span class=" bg-Primaria px-2 rounded-full text-Neutra text-base">6</span></h1>
+                            <img class="w-[10%]" src="" alt="X" @onclick="OcultarMenu"/>
+                        </div>
+                        <div class="p-2 overflow-y-auto scroll-auto">
+                            <ul>
+                                @for (int i = 0; i < 3; i++)
+                                {
+                                    <li class=" hover:bg-Intermedia hover:bg-opacity-5">
+                                        <div class="border-b border-b-Secundaria py-2">
+                                            <div class="flex">
+                                                <h1 class=" w-[80%] text-Secundaria font-bold">Tarefa</h1>
+                                                <h2 class="w-[20%] text-sm">Estado</h2>
+                                            </div>
+                                            <p>Desricao da tarefa</p>
+                                        </div>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class=" bg-Neutra relative overflow-y-auto rounded-tl-xl h-[90%]">
@@ -140,6 +163,16 @@ else
         if (!(await api.Autenticado()))
             rotas.NavigateTo("/");
         loaded = true;
+    }
+
+    async void MostrarMenu()
+    {
+        await js.InvokeVoidAsync("MostrarMenu");
+    }
+    
+    async void OcultarMenu()
+    {
+        await js.InvokeVoidAsync("OcultarMenu");
     }
 
 }

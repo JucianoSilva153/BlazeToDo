@@ -47,9 +47,18 @@
                         <p>@tarefa.Descricao</p>
                     </div>
                     <div class=" h-[33%] text-center">
-                        <button class=" p-2 bg-Primaria w-[80%] rounded text-Neutra hover:scale-[1.05] transition-all">
-                            Ver mais...
-                        </button>
+                        @if (tarefa.Concluida)
+                        {
+                            <button class=" p-2 bg-Secundaria w-[80%] rounded text-Neutra hover:scale-[1.05] transition-all">
+                                Tarefa Concluida!
+                            </button>
+                        }
+                        else
+                        {
+                            <button @onclick="() => ConcluirTarefa(tarefa.Id)" class=" p-2 bg-Primaria w-[80%] rounded text-Neutra hover:scale-[1.05] transition-all">
+                                Concluir
+                            </button>
+                        }
                     </div>
                 </div>
             }
@@ -74,7 +83,21 @@
         {
             ListaTarefas = ListaTarefas.FindAll(l => l.ListaPertencente == NomeLista);
         }
+
         StateHasChanged();
+    }
+
+    private async void ConcluirTarefa(int ID)
+    {
+        if (await api.ConcluirTarefa(ID))
+        {
+            Console.WriteLine("Tarefa concluida com sucesso!");
+            StateHasChanged();
+        }
+        else
+        {
+            Console.WriteLine("Erro ao concluir tarefa!");
+        }
     }
 
     private string DataConclusao(DateTime data)

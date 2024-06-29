@@ -15,3 +15,13 @@ window.MostrarEliminarCategoria = () => {
 window.OcultarEliminarCategoria = () => {
     document.getElementById("popEliminarCategoria").style.display = "none";
 }
+
+window.OcultarMenu = () => {
+    document.getElementById("Menu").classList.remove("flex");
+    document.getElementById("Menu").classList.add("hidden");
+}
+
+window.MostrarMenu = () => {
+    document.getElementById("Menu").classList.remove("hidden");
+    document.getElementById("Menu").classList.add("flex");
+}

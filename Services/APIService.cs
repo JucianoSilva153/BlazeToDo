@@ -226,6 +226,25 @@ public class APIService
 
         return false;
     }
+
+    public async Task<bool> ConcluirTarefa(int IdTarefa)
+    {
+        try
+        {
+            var response = await client.PutAsync($"{BaseURI}/api/Tarefas/Concluir/{IdTarefa}", null);
+            if (response.IsSuccessStatusCode)
+            {
+                return true;
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e.Message);
+            return false;
+        }
+
+        return false;
+    }
     
     public async Task<bool> CriarCategoria(CriaCategoriaDTO categoria)
     {
